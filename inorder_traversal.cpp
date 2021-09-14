@@ -14,6 +14,35 @@ struct node
 	}
 };
 
+void InOrder(node* root)
+{
+	if(root == nullptr)
+		return;
+	InOrder(root->left);
+	cout << root->data << " ";
+	InOrder(root->right);
+}
+
+void IterativeIneorder(node* root)
+{
+	stack<node*>stk;
+	while(stk.size() > 0 or root != nullptr)
+	{
+		if(root != nullptr)
+		{
+			stk.push(root);
+			root = root->left;
+		}
+		else
+		{
+			node* t = stk.top();
+			stk.pop();
+			root = t->right;
+			cout << t->data << " ";
+		}
+	}
+}
+
 int main()
 {
 	int x;
@@ -44,5 +73,9 @@ int main()
 			q.push(temp);
 		}
 	}
+	cout << "\n In-order traversal : ";
+	InOrder(root);
+	cout << "\n Iterative In-order traversal : ";
+	IterativeIneorder(root);
 	return 0;
 }
