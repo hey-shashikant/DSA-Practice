@@ -14,16 +14,17 @@ struct node
 	}
 };
 
-void PreOrder(node* root)
+void PostOrder(node* root)
 {
 	if(root == nullptr)
 		return;
+	PostOrder(root->left);
+	PostOrder(root->right);
 	cout << root->data << " ";
-	PreOrder(root->left);
-	PreOrder(root->right);
 }
 
-void IterativePreorder(node* root)
+/*
+void IterativePostorder(node* root)
 {
 	stack<node*>stk;
 	while(stk.size() > 0 or root != nullptr)
@@ -42,6 +43,7 @@ void IterativePreorder(node* root)
 		}
 	}
 }
+*/
 
 int main()
 {
@@ -73,9 +75,9 @@ int main()
 			q.push(temp);
 		}
 	}
-	cout << "\n Pre-order traversal : ";
-	PreOrder(root);
-	cout << "\n Iterative Pre-order traversal : ";
-	IterativePreorder(root);
+	cout << "\n Post-order traversal : ";
+	PostOrder(root);
+	//cout << "\n Iterative Post-order traversal : ";
+	//IterativePostorder(root);
 	return 0;
 }

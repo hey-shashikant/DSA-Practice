@@ -23,7 +23,7 @@ void InOrder(node* root)
 	InOrder(root->right);
 }
 
-void IterativeIneorder(node* root)
+void IterativeInorder(node* root)
 {
 	stack<node*>stk;
 	while(stk.size() > 0 or root != nullptr)
@@ -76,6 +76,6 @@ int main()
 	cout << "\n In-order traversal : ";
 	InOrder(root);
 	cout << "\n Iterative In-order traversal : ";
-	IterativeIneorder(root);
+	IterativeInorder(root);
 	return 0;
 }
