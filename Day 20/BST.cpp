@@ -36,6 +36,7 @@ Node* insert(Node* root, int key)
 	return root;
 }
 
+//Search in BST
 Node* searchNode(Node* root, int key)
 {
 	while(root != nullptr)
@@ -59,6 +60,24 @@ void Inorder(Node* root)
 	cout << root->data << " ";
 	Inorder(root->right);
 }
+
+//Inorder Successor
+Node* InorderSuccessor(Node* root)
+{
+	while(root and root->left != nullptr)
+		root = root->left;
+	return root;
+}
+
+//Inorder Predecessor
+Node* InorderPredecessor(Node* root)
+{
+	while(root and root->right != nullptr)
+		root = root->right;
+	return root;
+}
+
+
 
 //Driver Program
 int main()
