@@ -1,83 +1,63 @@
-#include <bits/stdc++.h>
+//Initial template for C++
+
+#include<bits/stdc++.h>
 using namespace std;
 
-struct node{
-    int u;
-    int v;
-    int wt;
-    node(int f1, int f2, int w)
-    {
-        u = f1;
-        v = f2;
-        wt = w;
+ // } Driver Code Ends
+//User function template for C++
+
+class Solution {
+  public:
+    void shortest_distance(vector<vector<int>>&matrix){
+        // Code here
+        int V = matrix.size();
+        for(int k=0; k<V; k++)
+        {
+            for(int i=0; i<V; i++)
+            {
+                for(int j=0; j<V; j++)
+                {
+                    if(matrix[i][k] == -1 or matrix[k][j] == -1)
+                        continue;
+                    else if(matrix[i][j] == -1)
+                    {
+                        matrix[i][j] = matrix[i][k] + matrix[k][j];
+                    }
+                    else
+                    {
+                        matrix[i][j] = min(matrix[i][j] , matrix[i][k] + matrix[k][j]);
+                    }
+                }
+            }
+        }
     }
 };
 
-bool comp(node a1, node a2)
-{
-    if(a1.wt < a2.wt)
-        return true;
-    return false;
-}
-
-int findparent(int u, vector<int> &parent)
-{
-    if(u == parent[u])
-        return u;
-    return findparent(parent[u],parent);
-}
-
-void unionn(int u, int v, vector<int> &parent, vector<int> &rank)
-{
-    u = findparent(u, parent);
-    v = findparent(v, parent);
-    if (rank[u] < rank[v])
-    {
-        parent[u] = v;
-    }
-    else if (rank[v] < rank[u])
-    {
-        parent[v] = u;
-    }
-    else
-    {
-        parent[v] = u;
-        rank[u]++;
-    }
-}
-
-int main()
-{
-    int N = 1000;
-    int m;
-    cin >> m;
-    vector<node> edges;
-    for (int i = 0; i < m; i++)
-    {
-        int u, v, wt;
-        cin >> u >> v >> wt;
-        edges.push_back(node(u, v, wt));
-    }
-    sort(edges.begin(), edges.end(), comp);
-
-    vector<int> parent(N);
-    for (int i = 0; i < N; i++)
-        parent[i] = i;
-    vector<int> rank(N, 0);
-
-    int cost = 0;
-    vector<pair<int, int>> mst;
-    for (auto it : edges)
-    {
-        if (findparent(it.v, parent) != findparent(it.u, parent))
-        {
-            cost += it.wt;
-            mst.push_back({it.u, it.v});
-            unionn(it.u, it.v, parent, rank);
+// { Driver Code Starts.
+int main(){
+#ifndef ONLINE_JUDGE
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
+#endif   
+    int tc;
+    cin >> tc;
+    while(tc--){
+        int n;
+        cin >> n;
+        vector<vector<int>>matrix(n, vector<int>(n, -1));
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                cin >> matrix[i][j];
+            }
+        }
+        Solution obj;
+        obj.shortest_distance(matrix);
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                cout << matrix[i][j] << " ";
+            }
+            cout << "\n";
         }
     }
-    cout << cost << endl;
-    for (auto it : mst)
-        cout << it.first << " - " << it.second << endl;
     return 0;
-}
+}  // } Driver Code Ends
